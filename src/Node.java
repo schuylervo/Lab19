@@ -3,7 +3,7 @@
 public class Node {
 	
 	private String data;
-	private Node next;
+	Node next;
 	
 	public Node(String data, Node next) {
 		this.data = data;

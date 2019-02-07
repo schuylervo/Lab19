@@ -2,9 +2,9 @@
 public class MyLinkedList implements MyList {
 
 	// head is the first node in the list. if null, the list is empty.
-	private Node head = null;
+	public Node head = null;
 	// for convenience, keep track of how many items are in the list
-	private int length = 0;
+	public int length = 0;
 	
 	@Override
 	public void addAtBeginning(String data) {
@@ -35,20 +35,12 @@ public class MyLinkedList implements MyList {
 			length++;
 			return;
 		}
-		else {
-			//Node newNode = new Node(data);
-			Node node = new Node(data);
+		else { Node node = head;
 			
-			//node = head.getNext();
-			node = getNodeAt(length -1);
-			 node.setData(data);
-			//while ((head.getNext() != null)) {
-	        //   head = head.getNext();
-	       //}
-			//node = head.getNext();
-			//node = new Node(data);
-			//Node newNode = new Node(data);
-			//node.setNext(newNode); 
+			while ((node.getNext() != null)) {
+	           node = node.getNext();
+	       }
+			node.setNext(new Node(data)); 
 			length++;
 		}
 	}
@@ -113,33 +105,61 @@ public class MyLinkedList implements MyList {
 		return node;
 	}
 	
-/*	private boolean removeAt (int index) {
+	public boolean removeAt (int index) {
 		
 		if (index == 0) {
-			Node node = head;
-			head = head.getNext();
-	           length--;
+			removeFromBeginning();
 	           return true;
+		}
+		if (index == length -1) {
+			removeFromEnd();
+			return true;
 		}
 		if ((index > (length -1)) || index < 0) {
 			return false;
 		}
 		else {
-			Node node = getNodeAt(index-1);
-			node = setNext(index+1);
-			length --;
-			return true;		
+//			// This also works:	
+			// Node node1 = getNodeAt( (index -1) );
+			// Node node2 = getNodeAt( (index + 1) ;
+			//node1.setNext(node2);
+			Node node= head;
+				for(int i=0; i<index-1;i++) {
+					node=node.getNext();
+		}
+		node.next = node.next.next;
+			
+		length--;
+		return true;
 		}
 	}
-	private boolean insertAt (int index, String item) {
-		Node node = getNodeAt(index);
-		for (int i; i< node.size()); i++)
-		if (i = index ) {
-			return true;
-		} else {
+	
+	public boolean insertAt (int index, String item) {
+		
+		if ( (index < 0) || (index > length) ) {
 			return false;
 		}
+		if (index == 0) {
+			addAtBeginning(item);
+			return true;
+		}
+		if (index == length) {
+			addAtEnd(item);
+			return true;
+		}
 		
+		
+		else {
+			
+			Node node1 = getNodeAt((index-1));	
+			Node node3 = getNodeAt((index));	
+			Node node2 = new Node ((item));	
+			node1.setNext(node2);
+			node2.setNext(node3);
+			length++;
+			return true;
+		}
+			
 	}
-*/
+
 }
